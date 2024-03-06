@@ -28,3 +28,5 @@ print(x)
 print('\n\n')
 j=x.drop
 print(j)
+
+print(df1)
