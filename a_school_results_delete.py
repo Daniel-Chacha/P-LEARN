@@ -31,7 +31,7 @@ def studentresult():
         if option =='yes':
             new_df=df1.drop(matching_row.index)
             num=len(new_df)
-            print(new_df)
+            #print(new_df)
 
             def grading(z):
                 if z>=90:
@@ -60,19 +60,19 @@ def studentresult():
                     gr='E'
                 return gr
 
-            file_no=list(df1['FILE_NO.'])
-            names=list(df1['NAMES'])
-            math=list(df1['MATH'])
-            eng=list(df1['ENG'])
-            kisw=list(df1['KISW'])
-            chem=list(df1['CHEM'])
-            bio=list(df1['BIO'])
-            phyc=list(df1['PHYC'])
-            geo=list(df1['GEO'])
-            comp=list(df1['COMP'])
-            total=list(df1['TOTAL'])
-            average=list(df1['AVERAGE'])
-            grade=list(df1['GRADE'])
+            file_no=list(new_df['FILE_NO.'])
+            names=list(new_df['NAMES'])
+            math=list(new_df['MATH'])
+            eng=list(new_df['ENG'])
+            kisw=list(new_df['KISW'])
+            chem=list(new_df['CHEM'])
+            bio=list(new_df['BIO'])
+            phyc=list(new_df['PHYC'])
+            geo=list(new_df['GEO'])
+            comp=list(new_df['COMP'])
+            total=list(new_df['TOTAL'])
+            average=list(new_df['AVERAGE'])
+            grade=list(new_df['GRADE'])
             subject_total=[]
             subject_avg=[]
             subject_grade=[]
@@ -107,6 +107,7 @@ def studentresult():
             }
             df2=pd.DataFrame(data)
             df2.index+=1
+            #print(df2)
 
             def excel_file(df):
                 sorted=df.sort_values(by='TOTAL',ascending=False)
@@ -129,6 +130,7 @@ def studentresult():
                 sorted=sorted._append(extra3, ignore_index=True)
 
                 sorted.index+=1
+                #print(sorted)
 
                 #creating an excel workbook and passing the dataframe to it
 
@@ -159,7 +161,7 @@ def studentresult():
                 wb.save('a-results3.xlsx')
                 
             excel_file(df2)
-            print(df2)
+            #print(df2)
 
             #new_df.to_excel('a-results2.xlsx',index=False)
         elif option =='no':
