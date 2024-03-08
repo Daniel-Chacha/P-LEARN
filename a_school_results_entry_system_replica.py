@@ -1,5 +1,4 @@
-import matplotlib.pyplot as plt 
-import shutil
+import pandas as pd 
 import openpyxl
 from openpyxl.styles import Font
 from openpyxl.styles import Alignment
@@ -54,8 +53,6 @@ def grading(z):
         gr='Wrong marks entered'
     return gr
 
-
-print('Enter the scores for each student')
 for x in range(num):
     h=int(input('FILE.NO: '))
 
@@ -66,48 +63,84 @@ for x in range(num):
     file_no.append(h)
     a=(input('NAME: '))
     names.append(a)
-    b=int(input('MATH: '))
-    math.append(b)
-    c=int(input('ENG: '))
-    eng.append(c)
-    d=int(input('KISW: '))
-    kisw.append(d)
-    e=int(input('CHEM: '))
-    chem.append(e)
-    f=int(input('BIO: '))
-    bio.append(f)
-    g=int(input('PHYC: '))
-    phyc.append(g)
-    h=int(input('GEO: '))
-    geo.append(h)
-    i=int(input('COMP: '))
-    comp.append(i)
-    t=b+c+d+e+f+g+h+i
+
+start_entry={
+    'FILE_NO.' :file_no,
+    'NAMES'  :names
+}
+df1=pd.DataFrame(start_entry)
+df1.index+=1
+
+def subject_choice():
+    k=input('Enter name of subject to key in results: ')
+    sub_choice=k.lower()
+    if sub_choice == 'mathematics':
+        sub_selected=math
+    elif sub_choice == 'english':
+        sub_selected=eng
+    elif sub_choice == 'kiswahili':
+        sub_selected=kisw
+    elif sub_choice == 'chemistry':
+        sub_selected= chem
+    elif sub_choice == 'biology':
+        sub_selected=bio
+    elif sub_choice == 'physics':
+        sub_selected=phyc
+    elif sub_choice == 'geography':
+        sub_selected=geo
+    elif sub_choice == 'computer':
+        sub_selected=comp
+    else:
+        print('ERROR!! Wrong Entry, Re-enter your choice')
+        subject_choice()
+
+   
+    x=1
+    while x<= len(df1):
+        print(df1.loc[[x]])
+        a=int(input(("Enter student's mark: ")))
+        sub_selected.append(a)
+        x+=1
+    
+    def another_subject():
+        print('Do you want to enter marks for another subject? ')
+        des=input('YES or NO: ')
+        des1=des.lower()
+        if des1 == 'yes':
+            subject_choice()
+        elif des1=='no':
+            print(f'Marks entry for {sub_choice} completed.')
+        else:
+            print('Wrong choice entered!! Re-try')
+            another_subject()
+    another_subject()
+
+subject_choice()
+
+for e in range(num):
+    t=0
+    if math:
+        t+=math[e]
+    if eng:
+        t+=eng[e]
+    if kisw:
+        t+=kisw[e]
+    if chem:
+        t+=chem[e]
+    if bio:
+        t+=bio[e]
+    if phyc:
+        t+=phyc[e]
+    if geo:
+        t+=geo[e]
+    if comp:
+        t+=comp[e]
+        
     total.append(t)
     avg=t/8
     average.append(avg)
-
     w=grading(avg)
     grade.append(w)
-
-    if x<=num:
-        print('\nNew Entry\n')
-    else:
-        print('----')
-
-#total marks,avg and grade of each subject
-subjects=[math,eng,kisw,chem,bio,phyc,geo,comp,total,average]
-for y in subjects:
-    grandtotal=sum(y)
-    subject_total.append(grandtotal)
-    s_avg= grandtotal/num
-    subject_avg.append(s_avg)
-    s_grade=grading(s_avg)
-    if y is total:
-        s_grade='-'
-    subject_grade.append(s_grade)
-
-import pandas as pd
 
 data={
     'FILE_NO.' :file_no,
@@ -122,13 +155,28 @@ data={
     'COMP'     :comp,
     'TOTAL'    :total,
     'AVERAGE'  :average,
-    'GRADE'    :grade,
-    
-
+    'GRADE'    :grade
 }
-df=pd.DataFrame(data)
-df.index+=1
-#print(df)
+
+series_dict={key:pd.Series(value,dtype=object) for key, value in data.items()}
+
+df2=pd.DataFrame(series_dict)
+df2.index+=1
+print(df2)
+
+#total marks,avg and grade of each subject
+subjects=[math,eng,kisw,chem,bio,phyc,geo,comp,total,average]
+for y in subjects:
+    grandtotal=sum(y)
+    subject_total.append(grandtotal)
+    s_avg= grandtotal/num
+    subject_avg.append(s_avg)
+    s_grade=grading(s_avg)
+    if y is total:
+        s_grade='-'
+    subject_grade.append(s_grade)
+
+
 
 def excel_file(df):
     sorted=df.sort_values(by='TOTAL',ascending=False)
@@ -180,4 +228,4 @@ def excel_file(df):
 
     wb.save('a-results3.xlsx')
     
-excel_file(df)
+excel_file(df2)
