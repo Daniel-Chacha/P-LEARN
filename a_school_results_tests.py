@@ -1,31 +1,33 @@
-import pandas as pd
+import pandas as pd     
 
-models=['volvo','bmw']
-years=['2024','2023']
-countrys=['kenya','tz']
-
-dict={
-    'model':models,
-    'year': years,
-    'country':countrys
-}
-df1=pd.DataFrame(dict)
+print("subject selection available include:")
+print(' Mathematics , English ,Kiswahili, Chemistry, Biology, Physics, Geography, Computer')
+k=input('Enter your choice: ')
+sub_choice=k.lower()
+if sub_choice == 'mathematics':
+    search_column='MATH'
+elif sub_choice == 'english':
+    search_column='ENG'
+elif sub_choice == 'kiswahili':
+    search_column='KISW'
+elif sub_choice == 'chemistry':
+    search_column= 'CHEM'
+elif sub_choice == 'biology':
+    search_column='BIO'
+elif sub_choice == 'physics':
+    search_column='PHYC'
+elif sub_choice == 'geography':
+    search_column='GEO'
+elif sub_choice == 'computer':
+    search_column='COMP'
+else:
+    print('ERROR!! Wrong Entry, Re-enter your choice')
+    edit_whole_class()
+df1=pd.read_excel('a-results2.xlsx')
 df1.index+=1
+selected_columns=df1[['FILE_NO.','NAMES',search_column]]
+#print(selected_columns)
 
-models=['mercedes','ferari']
-years=['2022','2021']
-countrys=['uganda','rwanda']
-dict2={
-    'model':models,
-    'year': years,
-    'country':countrys
-}
-df2=pd.DataFrame(dict2)
-x=pd.concat([df1,df2],ignore_index=True)
-x.index+=1
+print(selected_columns.loc[[0]])
 
-print(x)
-print('\n\n')
-j=x.drop
-print(j)
-
+p=int(input('Enter the new score: '))

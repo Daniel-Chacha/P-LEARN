@@ -78,6 +78,7 @@ def subjectresults():
     selected_columns=df[['FILE_NO.','NAMES',search_column]]
     print(selected_columns)
     
+
     #yplots_titles=[['MATH','MATHEMATICS'],['ENG','ENGLISH'],['KISW','KISWAHILI'],['CHEM','CHEMISTRY'],['BIO','BIOLOGY'],['PHYC','PHYSICS'],['GEO','GEOGRAPHY'],['COMP','COMPUTER STUDIES']]
     df=pd.read_excel('a-results2.xlsx')
     plt.bar(df['NAMES'],df[search_column])
