@@ -82,7 +82,7 @@ def subjectresults():
     #yplots_titles=[['MATH','MATHEMATICS'],['ENG','ENGLISH'],['KISW','KISWAHILI'],['CHEM','CHEMISTRY'],['BIO','BIOLOGY'],['PHYC','PHYSICS'],['GEO','GEOGRAPHY'],['COMP','COMPUTER STUDIES']]
     df=pd.read_excel('a-results2.xlsx')
     plt.bar(df['NAMES'],df[search_column])
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=80)
     n_subchoice=sub_choice.upper()
     plt.title(n_subchoice)
 
@@ -93,7 +93,7 @@ def subjectresults():
 def entry():
     print(" 1...ACCESS A SPECIFIC STUDENT'S RESULTS")
     print(' 2...ACCESS THE RESULTS OF A SUBJECT')
-    choice=int(input('Enter  the index number to proceed: '))
+    choice=int(input('Enter  the number of your choice to proceed: '))
     if choice ==1:
        studentresult()
     elif choice==2:

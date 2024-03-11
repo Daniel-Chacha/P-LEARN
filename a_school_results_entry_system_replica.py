@@ -162,7 +162,7 @@ series_dict={key:pd.Series(value,dtype=object) for key, value in data.items()}
 
 df2=pd.DataFrame(series_dict)
 df2.index+=1
-print(df2)
+#print(df2)
 
 #total marks,avg and grade of each subject
 subjects=[math,eng,kisw,chem,bio,phyc,geo,comp,total,average]
@@ -190,7 +190,8 @@ def excel_file(df):
     #extra1=pd.DataFrame([newsubtotal],columns=df.columns)
     #sorted=sorted._append(extra1, ignore_index=True)
     grandtotals=sorted.iloc[:,2:12].sum()
-    sorted.loc[len(sorted)+2]=['SubjectTotal','-',grandtotals[0],grandtotals[1],grandtotals[2],grandtotals[3],grandtotals[4],grandtotals[5],grandtotals[6],grandtotals[7],grandtotals[8],grandtotals[9],'-','-']
+    sorted.loc[len(sorted)+num]=['SubjectTotal','-',grandtotals[0],grandtotals[1],grandtotals[2],grandtotals[3],grandtotals[4],grandtotals[5],grandtotals[6],grandtotals[7],grandtotals[8],grandtotals[9],'-','-']
+    #print(grandtotals) 
 
     newgrand_avg=['SubjectAverage','-',subject_avg[0],subject_avg[1],subject_avg[2],subject_avg[3],subject_avg[4],subject_avg[5],subject_avg[6],subject_avg[7],subject_avg[8],subject_avg[9],'-']
     extra2=pd.DataFrame([newgrand_avg],columns=df.columns)
@@ -199,8 +200,9 @@ def excel_file(df):
     newgrand_grade=['SubjectGrades','-',subject_grade[0],subject_grade[1],subject_grade[2],subject_grade[3],subject_grade[4],subject_grade[5],subject_grade[6],subject_grade[7],subject_grade[8],subject_grade[9],'-']
     extra3=pd.DataFrame([newgrand_grade],columns=df.columns)
     sorted=sorted._append(extra3, ignore_index=True)
-
-    ranked_subjects=grandtotals.rank(ascending=False,method='min')
+    
+    grands=grandtotals[0:8]
+    ranked_subjects=grands.rank(ascending=False,method='min')
     sorted.loc[len(sorted)]=['SubjectRank','-',ranked_subjects[0],ranked_subjects[1],ranked_subjects[2],ranked_subjects[3],ranked_subjects[4],ranked_subjects[5],ranked_subjects[6],ranked_subjects[7],'-','-','-','-']
 
     sorted.index+=1

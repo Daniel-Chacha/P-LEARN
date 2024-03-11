@@ -4,6 +4,7 @@ import shutil
 import openpyxl
 from openpyxl.styles import Font
 from openpyxl.styles import Alignment
+import sys
 
 def studentresult():
     search_value=int(input('Enter the File Number of the Student: '))
@@ -118,7 +119,7 @@ def studentresult():
                     sorted.to_excel(file,index=False,startrow=0,startcol=0,sheet_name='sheet1')
                 
                 grandtotals=sorted.iloc[:,2:12].sum()
-                sorted.loc[len(sorted)+2]=['SubjectTotal','-',grandtotals[0],grandtotals[1],grandtotals[2],grandtotals[3],grandtotals[4],grandtotals[5],grandtotals[6],grandtotals[7],grandtotals[8],grandtotals[9],'-','-']
+                sorted.loc[len(sorted)+num]=['SubjectTotal','-',grandtotals[0],grandtotals[1],grandtotals[2],grandtotals[3],grandtotals[4],grandtotals[5],grandtotals[6],grandtotals[7],grandtotals[8],grandtotals[9],'-','-']
 
 
                 newgrand_avg=['SubjectAverage','-',subject_avg[0],subject_avg[1],subject_avg[2],subject_avg[3],subject_avg[4],subject_avg[5],subject_avg[6],subject_avg[7],subject_avg[8],subject_avg[9],'-']
@@ -129,7 +130,8 @@ def studentresult():
                 extra3=pd.DataFrame([newgrand_grade],columns=df.columns)
                 sorted=sorted._append(extra3, ignore_index=True)
 
-                ranked_subjects=grandtotals.rank(ascending=False,method='min')
+                grands=grandtotals[0:8]      
+                ranked_subjects=grands.rank(ascending=False,method='min')
                 sorted.loc[len(sorted)]=['SubjectRank','-',ranked_subjects[0],ranked_subjects[1],ranked_subjects[2],ranked_subjects[3],ranked_subjects[4],ranked_subjects[5],ranked_subjects[6],ranked_subjects[7],'-','-','-','-']
 
                 sorted.index+=1
@@ -169,7 +171,7 @@ def studentresult():
             #new_df.to_excel('a-results2.xlsx',index=False)
         elif option =='no':
             print('EXITING WITHOUT DELETING')
-            studentresult()
+            sys.exit()
         else:
             print("Invalid Input: Please enter 'yes' or 'no' ")
             confirm_deletion()  
@@ -177,3 +179,15 @@ def studentresult():
     
 
 studentresult()
+def repeat():
+    print("Would you like to delete  another student's results?")
+    decision=input(" 'YES' or 'NO': ")
+    if decision=='yes':
+        studentresult()
+    elif decision=='no':
+        sys.exit()
+    else:
+        print(' Wrong input!')
+        repeat()
+
+repeat()

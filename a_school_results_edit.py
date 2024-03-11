@@ -51,7 +51,7 @@ def edit_individual_results():
             df1.at[z,edit_subject]=g
 
             df1['TOTAL']=df1[['MATH','ENG','KISW','CHEM','BIO','PHYC','GEO','COMP']].sum(axis=1)
-            print(df1)
+            #print(df1)
 
             def tot_avg_grade():
 
@@ -109,7 +109,7 @@ def edit_individual_results():
                 for y in subjects:
                     grandtotal=sum(y)
                     subject_total.append(grandtotal)
-                    s_avg= grandtotal/num
+                    s_avg= grandtotal/len(df1)
                     subject_avg.append(s_avg)
                     s_grade=grading(s_avg)
                     if y is total:
@@ -144,10 +144,9 @@ def edit_individual_results():
                     #a file and pass the dataframe to it
                     with pd.ExcelWriter('a-results2.xlsx',engine='openpyxl',mode='w')as file:
                         sorted.to_excel(file,index=False,startrow=0,startcol=0,sheet_name='sheet1')
-
-                    newsubtotal=['SubjectTotal','-',subject_total[0],subject_total[1],subject_total[2],subject_total[3],subject_total[4],subject_total[5],subject_total[6],subject_total[7],subject_total[8],subject_total[9],'-']
-                    extra1=pd.DataFrame([newsubtotal],columns=df.columns)
-                    sorted=sorted._append(extra1, ignore_index=True)
+                    
+                    grandtotals=sorted.iloc[:,2:12].sum()
+                    sorted.loc[len(sorted)+num]=['SubjectTotal','-',grandtotals[0],grandtotals[1],grandtotals[2],grandtotals[3],grandtotals[4],grandtotals[5],grandtotals[6],grandtotals[7],grandtotals[8],grandtotals[9],'-','-']
 
                     newgrand_avg=['SubjectAverage','-',subject_avg[0],subject_avg[1],subject_avg[2],subject_avg[3],subject_avg[4],subject_avg[5],subject_avg[6],subject_avg[7],subject_avg[8],subject_avg[9],'-']
                     extra2=pd.DataFrame([newgrand_avg],columns=df.columns)
@@ -156,6 +155,10 @@ def edit_individual_results():
                     newgrand_grade=['SubjectGrades','-',subject_grade[0],subject_grade[1],subject_grade[2],subject_grade[3],subject_grade[4],subject_grade[5],subject_grade[6],subject_grade[7],subject_grade[8],subject_grade[9],'-']
                     extra3=pd.DataFrame([newgrand_grade],columns=df.columns)
                     sorted=sorted._append(extra3, ignore_index=True)
+                    
+                    grands=grandtotals[0:8]      
+                    ranked_subjects=grands.rank(ascending=False,method='min')
+                    sorted.loc[len(sorted)]=['SubjectRank','-',ranked_subjects[0],ranked_subjects[1],ranked_subjects[2],ranked_subjects[3],ranked_subjects[4],ranked_subjects[5],ranked_subjects[6],ranked_subjects[7],'-','-','-','-']
 
                     sorted.index+=1
                     #print(sorted)
@@ -218,6 +221,7 @@ def edit_whole_class():
         edit_whole_class()
     df1=pd.read_excel('a-results2.xlsx')
     df1.index+=1
+    num=len(df1)
     selected_columns=df1[['FILE_NO.','NAMES',search_column]]
     print(selected_columns)
 
@@ -227,7 +231,7 @@ def edit_whole_class():
         df1.at[y,search_column]=int(input('Enter the new score: '))
     
     df1['TOTAL']=df1[['MATH','ENG','KISW','CHEM','BIO','PHYC','GEO','COMP']].sum(axis=1)
-    print(df1)
+    #print(df1)
  
     def tot_avg_grade():
 
@@ -322,7 +326,7 @@ def edit_whole_class():
                 sorted.to_excel(file,index=False,startrow=0,startcol=0,sheet_name='sheet1')
 
             grandtotals=sorted.iloc[:,2:12].sum()
-            sorted.loc[len(sorted)+2]=['SubjectTotal','-',grandtotals[0],grandtotals[1],grandtotals[2],grandtotals[3],grandtotals[4],grandtotals[5],grandtotals[6],grandtotals[7],grandtotals[8],grandtotals[9],'-','-']
+            sorted.loc[len(sorted)+num]=['SubjectTotal','-',grandtotals[0],grandtotals[1],grandtotals[2],grandtotals[3],grandtotals[4],grandtotals[5],grandtotals[6],grandtotals[7],grandtotals[8],grandtotals[9],'-','-']
 
             newgrand_avg=['SubjectAverage','-',subject_avg[0],subject_avg[1],subject_avg[2],subject_avg[3],subject_avg[4],subject_avg[5],subject_avg[6],subject_avg[7],subject_avg[8],subject_avg[9],'-']
             extra2=pd.DataFrame([newgrand_avg],columns=df.columns)
@@ -331,11 +335,11 @@ def edit_whole_class():
             newgrand_grade=['SubjectGrades','-',subject_grade[0],subject_grade[1],subject_grade[2],subject_grade[3],subject_grade[4],subject_grade[5],subject_grade[6],subject_grade[7],subject_grade[8],subject_grade[9],'-']
             extra3=pd.DataFrame([newgrand_grade],columns=df.columns)
             sorted=sorted._append(extra3, ignore_index=True)
-
-            ranked_subjects=grandtotals.rank(ascending=False,method='min')
+            
+            grands=grandtotals[0:8]
+            ranked_subjects=grands.rank(ascending=False,method='min')
             sorted.loc[len(sorted)]=['SubjectRank','-',ranked_subjects[0],ranked_subjects[1],ranked_subjects[2],ranked_subjects[3],ranked_subjects[4],ranked_subjects[5],ranked_subjects[6],ranked_subjects[7],'-','-','-','-']
-
-
+            
             sorted.index+=1
             #print(sorted)
 
