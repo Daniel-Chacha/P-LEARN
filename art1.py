@@ -1,5 +1,5 @@
-from colorama import Fore
+from colorama import Fore,Style
 import pyfiglet
 
-font=pyfiglet.figlet_format('Happy  Easter')
-print(Fore.BLUE+font)
+font=pyfiglet.figlet_format('Happy  Easter Holiday')
+print(Style.BRIGHT+Fore.MAGENTA+font)
