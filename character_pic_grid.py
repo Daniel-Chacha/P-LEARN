@@ -17,9 +17,11 @@ grid = [['.', '.', '.', '.', '.', '.'],
         ['.', 'O', 'O', '.', '.', '.'],
         ['.', '.', '.', '.', '.', '.']]
 
-for x in grid:
-    y=1
-    while y<9:
-        print(x[y])
-        y+=1
+
+for y in range(6):
+    for x in grid:    
+    
+        print(x[y],end='')
+    print('\n')
+    
 

@@ -4,7 +4,7 @@ import random
 
 
 while True:
-    guess=int(input('Guess the coin toss.Enter head or tail:  '))
+    guess=int(input('Guess the coin toss.Enter 1 for Head or 0 for Tail:  '))
     toss=random.randint(0,1)
     #print(toss)
 

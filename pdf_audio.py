@@ -1,6 +1,7 @@
 import PyPDF2 , pyttsx3
 
-path =open('')
+path =open('/home/daniel/Downloads/assignment.pdf')
+
 
 #creating a pdffile reader object
 pdfreader=PyPDF2.PdfFileReader(path)
