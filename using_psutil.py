@@ -39,3 +39,4 @@ print('Total disk',a)
 print('Used disk',b)
 print('Free disk',c)
 print('Memory Percent',e)
+
