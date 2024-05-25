@@ -13,5 +13,5 @@ expr=sym.lambdify(x,func)
 expr_der=sym.lambdify(x,func.diff(x))
 
 
-print(f'Value of func at x=5 :'{expr(5)})
-print(f'derivative of func at x=5:')
+print(f'Value of func at x=5 :' ,{expr(5)})
+print(f'derivative of func at x=5:',{expr_der(5)})
