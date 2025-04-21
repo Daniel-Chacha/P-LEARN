@@ -13,6 +13,7 @@ print(m[:5])
 #-ve slicing
 #5th to 8th item
 print(m[-5:-1])
+print(m[-1:-5])
 
 #steps
 print(m[1:8:2])

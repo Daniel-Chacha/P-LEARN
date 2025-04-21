@@ -7,5 +7,5 @@ from matplotlib import pyplot
 import seaborn
 
 x=random.normal(size=1000)
-seaborn.distplot(x,hist=False)
+seaborn.displot(x, kind='kde')
 pyplot.show()

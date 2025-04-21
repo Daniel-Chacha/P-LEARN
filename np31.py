@@ -1,6 +1,9 @@
-#visualizing with seaborn
+# #visualizing with seaborn
 from matplotlib import pyplot
 import seaborn
 
-seaborn.distplot([0,1,2,3,4,5])
+seaborn.displot([0,1,2,3,4,5], kind='kde')
 pyplot.show()
+
+
+ 

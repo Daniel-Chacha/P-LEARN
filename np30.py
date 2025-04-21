@@ -7,5 +7,5 @@ print(a)
 
 #permutation()
 b=numpy.array([5,6,7,8,9])
-random.permutation(b)
-print(b)
+
+print(random.permutation(b))
